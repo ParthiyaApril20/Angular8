@@ -1,0 +1,16 @@
+.example-config {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .list-title {
+    align-self: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .panelbar-wrapper {
+    max-width: 300px;
+    margin: 0 auto;
+}

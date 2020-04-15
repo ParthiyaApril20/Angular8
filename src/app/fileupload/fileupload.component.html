@@ -1,0 +1,23 @@
+
+<div style="align-content: center;padding-top: 50px;">
+  <span *ngIf='isFileUpload; else isResumeUpload'>
+    <div class="alert alert-light" style="color: forestgreen;padding-left: 10px;" role="alert">{{ message }}</div>
+  <label style="padding-left: 10px;">Upload candidate details: </label><br>
+  <label class="btn btn-default">
+  <input type="file" (change)="selectFile($event)" />
+  </label>
+  <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadFile('file')">
+  Upload
+  </button>
+</span>
+<ng-template #isResumeUpload>
+  <div class="alert alert-light" style="color: forestgreen;padding-left: 10px;" role="alert">{{ msg }}</div>
+  <label style="padding-left: 10px;">Uplaod candidate resumes: </label><br>
+  <label class="btn btn-default">
+  <input type="file" (change)="selectFile($event)" />
+  </label>
+  <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadFile('resume')">
+    Upload
+    </button>
+</ng-template>
+</div>

@@ -1,33 +1,26 @@
-<!--<div class="my-container">
-    <ngx-loading [show]="loadingLoader" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
-</div>-->
-<div class="row pt-4">
-	<div class="col-3"></div>
-	<div class="col-6">
-    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-      {{errorMessage}}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <br>
+<div class="container-fluid" id="authentication-wrapper">
+  <form [formGroup]="userForm"  class="form-horizontal" (ngSubmit)="userForm.valid && formSubmit()" novalidate >
+    <div id="welcome-message">
+      <h4>Please Log in</h4>
     </div>
-      <form [formGroup]="userForm"  class="form-horizontal" (ngSubmit)="userForm.valid && formSubmit()" novalidate >
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <div class="form-group">
-        	<label for="inputEmail" class="sr-only">Username</label>
-        	<input type="text" class="form-control" placeholder="Username" required="" autofocus="" formControlName="userName">
-    	</div>
-    	<div class="form-group">
-	        <label for="inputPassword" class="sr-only">Password</label>
-	        <input type="password" formControlName="password" class="form-control" placeholder="Password" required="">
-	    </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!userForm.valid">Sign in</button>
-      </form>
-	</div>
-	<div class="col-3"></div>
-</div>
+    <!--<div id="wrap">
+      <img src="https://bit.ly/2udBml1" alt="profile picture">
+    </div>-->
+    <strong style="color: red;">{{errorMessage}}</strong>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <kendo-textbox-container floatingLabel="Username">
+          <input kendoTextBox type="email" formControlName="username"/>
+        </kendo-textbox-container>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <kendo-textbox-container floatingLabel="Password">
+          <input kendoTextBox type="password" formControlName="password" />
+        </kendo-textbox-container>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <button class="submit-btn btn btn-success"> Login </button>
+      </div>
+    </div>
+  </form>
+  </div>

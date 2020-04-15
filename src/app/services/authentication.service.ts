@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-// import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
-import { map } from 'rxjs/operators';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +19,9 @@ export class AuthenticationService {
 
    // let headers = new HttpHeaders();
     //headers.append('Content-Type', 'application/json');
-    alert('JSON.stringify(data)==>'+JSON.stringify(data));
-    return this.http.get(jsonFile);
+    console.log('login service data==>'+data);
+    let url = 'http://localhost:8585/IntegratedPortal/api/private/v1/login';
+    return this.http.post(url,data, httpOptions);
     //.pipe(map((response: Response) => response.json()));
   }
- /* login(data) {
-    alert('In service login'+JSON.stringify(data));
-    // let headers = new Headers();
-    // headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post('http://localhost:8585/IntegratedPortal/api/private/v1/login', JSON.stringify(data), httpOptions);
-  }*/
 }

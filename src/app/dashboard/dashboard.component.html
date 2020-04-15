@@ -1,13 +1,74 @@
+<ng-sidebar-container style="position: absolute;" (onBackdropClicked)="_onBackdropClicked()">
+<ng-sidebar
+[(opened)]="_opened"
+[mode]="_MODES[_modeNum]"
+[keyClose]="_keyClose"
+[position]="_POSITIONS[_positionNum]"
+[dock]="_dock"
+[dockedSize]="'50px'"
+[autoCollapseHeight]="_autoCollapseHeight"
+[autoCollapseWidth]="_autoCollapseWidth"
+[closeOnClickOutside]="_closeOnClickOutside"
+[closeOnClickBackdrop]="_closeOnClickBackdrop"
+[showBackdrop]="_showBackdrop"
+[animate]="_animate"
+[trapFocus]="_trapFocus"
+[autoFocus]="_autoFocus"
+[ariaLabel]="'My sidebar'"
+(onOpenStart)="_onOpenStart()"
+(onOpened)="_onOpened()"
+(onCloseStart)="_onCloseStart()"
+(onClosed)="_onClosed()"
+(onTransitionEnd)="_onTransitionEnd()">
 
+<button class="demo-control" (click)="_toggleOpened()">Close</button>
+<!--<kendo-menu [items]="items" [vertical]="true">
+  <ng-template kendoMenuItemLinkTemplate let-item="item" let-index="index">
+      <a [kendoMenuItemLink]="index" [routerLink]="item.path">
+          {{ item.text }}
+          <span *ngIf="item.items && item.items.length" [kendoMenuExpandArrow]="index"></span>
+      </a>
+  </ng-template>
+</kendo-menu>
+<kendo-menu [items]="items" [vertical]="true" (click)="fileUpload($event)">
+</kendo-menu>
+<kendo-menu [vertical]="true">
+  <kendo-menu-item text="Recruitment">
+      <kendo-menu-item text="Upload Candidate Details" (select)="onSelect($event)">
+      </kendo-menu-item>
+      <kendo-menu-item text="Upload Candidate Resumes" url="">
+      </kendo-menu-item>
+  </kendo-menu-item>
+  <kendo-menu-item text="Accounts">
+    <kendo-menu-item text="DBS" url="">
+    </kendo-menu-item>
+    <kendo-menu-item text="Citi" url="">
+    </kendo-menu-item>
+  </kendo-menu-item>
+</kendo-menu>
+<kendo-menu [items]="items" [vertical]="true" (select)="onSelect($event)"></kendo-menu>-->
+<div class="panelbar-wrapper">
+  <kendo-panelbar #panelbar [items]="items" (stateChange)="onSelect($event)">
+  </kendo-panelbar>
+</div>
+</ng-sidebar>
 
-<ng-sidebar-container>
+<div ng-sidebar-content>
+<header class="demo-header">
+  <button (click)="_toggleOpened()" class="demo-header__toggle">Toggle sidebar</button>
+  <span>Menu</span>
+  <a style="margin-left: 1200px;" (click)="logOut()">Sign out</a> 
+</header>
+<div *ngIf = 'dashboard'>
+<section class="demo-contents">
+  <h1>Welcome to Integrated portal</h1>
+</section>
+</div>
 
-	<!-- A sidebar -->
-	<ng-sidebar position="center">
-		<ul>
-			<li>Recruitment</li>
-			<li>Accounts</li>
-			<li>Accounts1</li>
-		</ul>
-	</ng-sidebar>
+<div *ngIf='upload'>
+<app-fileupload [isFileUpload]="isFileUpload"></app-fileupload>
+</div>
+
+</div>
 </ng-sidebar-container>
+<router-outlet></router-outlet>

@@ -11,47 +11,41 @@ import {AuthenticationService} from '../services/authentication.service';
 export class LoginComponent implements OnInit {
   userForm: FormGroup;
   responseData: any;
-  public loadingLoader = false;
+  errorMessage: String;
   constructor(private fb: FormBuilder, private authService:AuthenticationService, private router: Router) {}
 
   ngOnInit() {
-      
     this.userForm = this.fb.group({
-      userName: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required]
   })
   }
 
   formSubmit(){
-		this.loadingLoader = true;
     let frmData=this.userForm.value;
     // this.router.navigate(['./dashboard']);
-		this.authService.login(frmData)
+    let data = JSON.stringify(frmData);
+    console.log("frmData::"+data)
+    this.errorMessage = '';
+		this.authService.login(data)
 	    .subscribe(
 	      response => {
           this.responseData = response;
-          alert('response in login comp==>'+ this.responseData);
-	          this.router.navigate(['./dashboard']);
-	      }
+          console.log('response in login comp==>'+ JSON.stringify(this.responseData));
+          if(this.responseData.status == 'Success'){
+            console.log('Login success');
+            this.router.navigate(['./dashboard']);
+          } else {
+            console.log('Login Failed');
+            this.errorMessage ='Invalid Username or Password';
+            this.router.navigate(['']);
+          } 
+        },
+        error =>{
+          console.log('Server error');
+          this.errorMessage ='Internal server error occured, please contact help desk for support!!';
+          this.router.navigate(['']);
+        }
 	    )
 	}
-
-  /*formSubmit(){
-		// this.loadingLoader = true;
-    let frmData=this.loginForm.value;
-    alert('formData::'+frmData);
-    if (this.loginForm.invalid) {
-      return;
-  }
-		this.authService.login(frmData)
-	    .subscribe(
-	      response => {
-          alert(response);
-          this.responseData = response;
-          alert(this.responseData);
-	          this.router.navigate(['./dashboard']);
-	      }
-	    )  
-	}*/
-
 }
